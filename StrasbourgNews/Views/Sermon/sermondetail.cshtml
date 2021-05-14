@@ -1,0 +1,92 @@
+﻿@using StrasbourgNews.Domain.ViewModels
+@model SermonViewModel
+@{
+    ViewBag.Title = "Ditib Strasbourg | Hutbeler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .textareaContainer {
+        display: contents;
+        border: 3px solid #38c;
+        padding: 10px;
+    }
+
+    textarea {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border-width: 0;
+    }
+</style>
+<div class="main-content--section pbottom--30">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content Start -->
+            <div class="main--content col-md-8" data-sticky-content="true">
+                <div class="sticky-content-inner">
+                    <!-- Post Item Start -->
+                    <div class="post--item post--single pd--30-0">
+
+
+                        <div class="post--content">
+                            <h3>@Model.Title</h3>
+                            <pre>@Model.CreationDate</pre>
+                            <br /><br />
+
+                            <label class="textareaContainer">
+                                <textarea name="text" style="height: 104vh; font-weight: 500;">@Model.Content</textarea>
+                            </label>
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                    <!-- Post Item End -->
+                    <!-- Post Social Start -->
+                    <div class="post--social pbottom--30">
+                        <span class="title"><i class="fa fa-share-alt"></i></span>
+
+                        <!-- Social Widget Start -->
+                        <div class="social--widget style--4">
+                            <ul class="nav">
+
+
+                                <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://twitter.com/intent/tweet?text=@Model.Title" target="_blank"><i class="fa fa-twitter"></i></a></li>
+
+                            </ul>
+                        </div>
+                        <!-- Social Widget End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Main Content End -->
+            <!-- Main Sidebar Start -->
+            <div class="main--sidebar col-md-4 ptop--30 pbottom--30" data-sticky-content="true">
+                <div class="sticky-content-inner">
+                    <!-- Widget Start -->
+                    <div class="widget">
+                        <!-- Ad Widget Start -->
+                        <div class="ad--widget">
+                            <a href="#">
+                                <img src="https://www.ditibstrasbourg.fr/@Model.Image.Remove(0,13)" alt="">
+                            </a>
+                        </div>
+                        <!-- Ad Widget End -->
+                    </div>
+                    <!-- Widget End -->
+ 
+
+                </div>
+            </div>
+            <!-- Main Sidebar End -->
+        </div>
+    </div>
+</div>
+

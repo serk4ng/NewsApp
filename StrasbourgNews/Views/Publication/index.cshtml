@@ -1,0 +1,72 @@
+﻿@using StrasbourgNews.Domain.ViewModels
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<PublicationViewModel>
+@{
+    ViewBag.Title = "Ditib Strasbourg | Yayınlar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-content--section pbottom--30" style="min-height:100vh !important;">
+    <div class="container">
+        <!-- Main Content Start -->
+        <div class="main--content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <!-- Page Title Start -->
+                    <div class="page--title pd--30-0 text-center">
+                        <h2 class="h2">Yayınlar</h2>
+
+
+                    </div>
+                    <!-- Page Title End -->
+                </div>
+            </div>
+
+            <!-- Contributor Items Start -->
+            <div class="contributor--items ptop--30">
+                <ul class="nav row AdjustRow">
+
+                    @foreach (var item in Model)
+                    {
+
+                        <li class="col-md-3 col-xs-6 col-xxs-12 pbottom--30">
+                            <!-- Contributor Item Start -->
+                            <div class="contributor--item style--2">
+                                <div class="img">
+                                    <img src="https://www.ditibstrasbourg.fr/@item.Image.Remove(0,13)" alt="">
+
+                                    <ul class="social nav bg--color-1--b">
+                                        <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="https://twitter.com/intent/tweet?text=@item.Name&nbsp;@item.Description" target="_blank"><i class="fa fa-twitter"></i></a></li>
+
+
+                                    </ul>
+                                </div>
+
+                                <div class="name">
+                                    <h3 class="h4">@item.Name</h3>
+                                </div>
+
+                                <div class="desc">
+                                    <p>@item.Description</p>
+                                </div>
+
+                            </div>
+                            <!-- Contributor Item End -->
+                        </li>
+                    }
+
+                </ul>
+
+                <div class="pagination  bd--color-2" style="text-align: center;display: contents;">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                    of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+            <!-- Contributor Items End -->
+        </div>
+        <!-- Main Content End -->
+    </div>
+</div>
+

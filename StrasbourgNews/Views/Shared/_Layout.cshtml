@@ -1,0 +1,345 @@
+﻿@using StrasbourgNews.Domain.Enums
+@using StrasbourgNews.Domain.ViewModels
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- ==== Google Font ==== -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700">
+
+    <!-- ==== Font Awesome ==== -->
+    <link rel="stylesheet" href="~/Assets/strasbourghaber/css/font-awesome.min.css">
+
+    <!-- ==== Bootstrap Framework ==== -->
+    <link rel="stylesheet" href="~/Assets/strasbourghaber/css/bootstrap.min.css">
+
+    <!-- ==== Bar Rating Plugin ==== -->
+    <link rel="stylesheet" href="~/Assets/strasbourghaber/css/fontawesome-stars-o.min.css">
+
+    <!-- ==== Main Stylesheet ==== -->
+    <link rel="stylesheet" href="~/Assets/strasbourghaber/style.css">
+
+    <!-- ==== Responsive Stylesheet ==== -->
+    <link rel="stylesheet" href="~/Assets/strasbourghaber/css/responsive-style.css">
+
+    <!-- ==== Theme Color Stylesheet ==== -->
+    <link rel="stylesheet" href="~/Assets/strasbourghaber/css/colors/theme-color-3.css" id="changeColorScheme">
+
+    <!-- ==== Custom Stylesheet ==== -->
+    <link rel="stylesheet" href="~/Assets/strasbourghaber/css/custom.css">
+
+    <!-- ==== HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries ==== -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        .pagination .active a {
+            background-color: #179ea8 !important;
+        }
+    </style>
+</head>
+
+
+<body onload="setLang()">
+
+
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="preloader bg--color-1--b" data-preloader="1">
+            <div class="preloader--inner"></div>
+        </div>
+    </div>
+
+
+
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+        <!-- Header Section Start -->
+        <header class="header--section header--style-4">
+            <!-- Header Topbar Start -->
+            <div class="header--topbar bg--color-1">
+                <div class="container">
+                    <div class="float--left float--xs-none text-xs-center">
+                        <!-- Header Topbar Info Start -->
+                        <ul class="header--topbar-info nav">
+                            <li>
+                                <i class="fa fm fa-map-marker"></i>Strasbourg
+                            </li>
+                            <li><i class="fa fm fa-mixcloud"></i>21<sup>0</sup> C</li>
+                            <li><i class="fa fm fa-calendar"></i>BUGÜN (@DateTime.Now.ToShortDateString())</li>
+                        </ul>
+                        <!-- Header Topbar Info End -->
+                    </div>
+
+                    <div class="float--right float--xs-none text-xs-center">
+
+
+                        <!-- Header Topbar Language Start -->
+                        <ul class="header--topbar-lang nav">
+                            <li class="dropdown">
+
+
+                                @Html.DropDownList("SiteLanguage",
+EnumHelper.GetSelectList(typeof(SiteLanguages)),
+
+new { @class = "form-control", @onchange = "LanguageSelection(this)", @id = "languageselector", @style = "color:white !important; height: 27px;" })
+                            </li>
+                        </ul>
+                        <!-- Header Topbar Language End -->
+                        <!-- Header Topbar Social Start -->
+                        <ul class="header--topbar-social nav hidden-sm hidden-xxs">
+                            <li><a href="@ViewBag.siteSettings.Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="@ViewBag.siteSettings.Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="@ViewBag.siteSettings.Instagram" target="_blank"><i class="fa fa-instagram"></i></a></li>
+
+                            <li><a href="@ViewBag.siteSettings.Youtube" target="_blank"><i class="fa fa-youtube-play"></i></a></li>
+                        </ul>
+                        <!-- Header Topbar Social End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Topbar End -->
+            <!-- Header Navbar Start -->
+            <div class="header--navbar navbar bd--color-1 bg--color-0" data-trigger="sticky">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#headerNav" aria-expanded="false" aria-controls="headerNav">
+                            <span class="sr-only">Menu</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <!-- Header Logo Start -->
+                        <div class="header--logo text-center">
+                            <h1 class="h1">
+                                <a href="/Home/index" class="btn-link">
+                                    <img src="~/Assets/strasbourghaber/img/logo_default.png" alt="USNews Logo" style="height: 80% !important; ">
+                                    <span class="hidden"> Logo</span>
+                                </a>
+                            </h1>
+                        </div>
+                        <!-- Header Logo End -->
+                    </div>
+
+
+
+                    <div id="headerNav" class="navbar-collapse collapse float--right">
+                        <!-- Header Menu Links Start -->
+                        <ul class="header--menu-links nav navbar-nav" data-trigger="hoverIntent">
+                            <li>
+                                <a href="/Home/index">Anasayfa</a>
+
+                            </li>
+
+
+                            <li><a href="/Home/ditibnews">DİTİB'den Haberler</a></li>
+
+                            <li><a href="/Home/associationnews">Derneklerimizden Haberler</a></li>
+                            <li><a href="/Sermon/index">Hutbeler</a></li>
+                            <li><a href="/Publication/index">Yayınlar</a></li>
+
+
+                        </ul>
+                        <!-- Header Menu Links End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Navbar End -->
+        </header>
+        <!-- Header Section End -->
+        <!-- News Ticker Start -->
+        <div class="news--ticker">
+            <div class="container">
+                <div class="title">
+                    <h2>Son Haberler</h2>
+
+                </div>
+
+                <div class="news-updates--list" data-marquee="true">
+                    <ul class="nav">
+              
+                        @foreach (var item in ViewBag.lastNews)
+                        {
+                            <li><a href="/Home/NewsDetail?Id=@item.Id">@item.Title</a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- News Ticker End -->
+        <!-- Main Content Section Start -->
+
+
+        @RenderBody()
+
+
+
+        <!-- Main Content Section End -->
+        <!-- Footer Section Start -->
+        <footer class="footer--section">
+
+
+            <!-- Footer Copyright Start -->
+            <div class="footer--copyright bg--color-3">
+                <div class="social--bg bg--color-1"></div>
+
+                <div class="container">
+                    <p class="text float--left">
+                        Copyright 2021 · Designed &amp; Developed by <a target="_blank" href="https://www.vakifglobal.com">
+                            VAKIF
+                            GLOBAL.
+                        </a> All rights reserved
+                    </p>
+
+                    <ul class="nav social float--right">
+                        <li><a href="@ViewBag.siteSettings.Facebook" target="_blank" class="fa fa-facebook" style="margin-top:5px;"></i></a></li>
+                        <li><a href="@ViewBag.siteSettings.Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+
+                        <li><a href="@ViewBag.siteSettings.Instagram" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="@ViewBag.siteSettings.Youtube" target="_blank"><i class="fa fa-youtube-play"></i></a></li>
+                    </ul>
+
+                    <ul class="nav links float--right">
+                        <li><a href="/Home/index">Anasayfa</a></li>
+
+
+                    </ul>
+                </div>
+            </div>
+            <!-- Footer Copyright End -->
+        </footer>
+        <!-- Footer Section End -->
+    </div>
+    <!-- Wrapper End -->
+    <!-- Sticky Social Start -->
+    <div id="stickySocial" class="sticky--right">
+        <ul class="nav">
+            <li>
+                <a href="@ViewBag.siteSettings.Facebook" target="_blank">
+                    <i class="fa fa-facebook"></i>
+                    <span>Bizi Takip Edin</span>
+                </a>
+            </li>
+            <li>
+                <a href="@ViewBag.siteSettings.Twitter" target="_blank">
+                    <i class="fa fa-twitter"></i>
+                    <span>Bizi Takip Edin</span>
+                </a>
+            </li>
+            <li>
+                <a href="@ViewBag.siteSettings.Instagram" target="_blank">
+                    <i class="fa fa-instagram"></i>
+                    <span>Bizi Takip Edin</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="@ViewBag.siteSettings.Youtube" target="_blank">
+                    <i class="fa fa-youtube-play"></i>
+                    <span>Bizi Takip Edin</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <!-- Sticky Social End -->
+    <!-- Preloader End -->
+    <!-- Back To Top Button Start -->
+    <div id="backToTop">
+        <a href="#"><i class="fa fa-angle-double-up"></i></a>
+    </div>
+    <!-- Back To Top Button End -->
+
+
+
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/tr_TR/sdk.js#xfbml=1&version=v10.0" nonce="8CJVazyk"></script>
+
+
+
+
+
+
+    <!-- ==== jQuery Library ==== -->
+    <script src="~/Assets/strasbourghaber/js/jquery-3.2.1.min.js"></script>
+
+    <!-- ==== Bootstrap Framework ==== -->
+    <script src="~/Assets/strasbourghaber/js/bootstrap.min.js"></script>
+
+    <!-- ==== StickyJS Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/jquery.sticky.min.js"></script>
+
+    <!-- ==== HoverIntent Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/jquery.hoverIntent.min.js"></script>
+
+    <!-- ==== Marquee Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/jquery.marquee.min.js"></script>
+
+    <!-- ==== Validation Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/jquery.validate.min.js"></script>
+
+    <!-- ==== Isotope Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/isotope.min.js"></script>
+
+    <!-- ==== Resize Sensor Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/resizesensor.min.js"></script>
+
+    <!-- ==== Sticky Sidebar Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/theia-sticky-sidebar.min.js"></script>
+
+    <!-- ==== Zoom Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/jquery.zoom.min.js"></script>
+
+    <!-- ==== Bar Rating Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/jquery.barrating.min.js"></script>
+
+    <!-- ==== Countdown Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/jquery.countdown.min.js"></script>
+
+    <!-- ==== RetinaJS Plugin ==== -->
+    <script src="~/Assets/strasbourghaber/js/retina.min.js"></script>
+
+    <!-- ==== Google Map API ==== -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBK9f7sXWmqQ1E-ufRXV3VpXOn_ifKsDuc"></script>
+
+    <!-- ==== Main JavaScript ==== -->
+    <script src="~/Assets/strasbourghaber/js/main.js"></script>
+
+    <script>
+
+        var selectedLang;
+;         function LanguageSelection(selectObject)
+        {
+
+             selectedLang =  selectObject.value;
+
+    location.href = '@Url.Action("Language", "Base")?lang=' + selectedLang;
+        }
+    </script>
+
+    <script>
+        function setLang() {
+        /**/
+
+            $(function () {
+                var temp = @Session["selectedlang"];
+                $("#languageselector").val(temp);
+            });
+
+        /**/
+    }
+    </script>
+</body>
+
+
+
+
+</html>
